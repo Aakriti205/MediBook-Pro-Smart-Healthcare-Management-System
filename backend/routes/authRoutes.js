@@ -1,0 +1,15 @@
+const express = require("express");
+const r = express.Router();
+const c = require("../controllers/authController");
+const { protect } = require("../middleware/authMiddleware");
+r.post("/send-otp", c.sendOTP);
+r.post("/verify-otp", c.verifyOTP);
+r.post("/resend-otp", c.resendOTP);
+r.post("/register", c.register);
+r.post("/login", c.login);
+r.post("/refresh", c.refreshToken);
+r.post("/logout", protect, c.logout);
+r.get("/profile", protect, c.getProfile);
+r.put("/profile", protect, c.updateProfile);
+r.put("/change-password", protect, c.changePassword);
+module.exports = r;

@@ -1,0 +1,10 @@
+const express = require("express");
+const r = express.Router();
+const ac = require("../controllers/adminController");
+const { protect, authorize } = require("../middleware/authMiddleware");
+const admin = [protect, authorize("admin")];
+r.get("/stats", ...admin, ac.getDashboardStats);
+r.get("/users", ...admin, ac.getAllUsers);
+r.put("/users/:id/toggle", ...admin, ac.toggleUserStatus);
+r.post("/broadcast", ...admin, ac.broadcast);
+module.exports = r;
